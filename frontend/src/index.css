@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* ---- Color tokens ---- */
+  --color-ink: #12100F;          /* near-black warm charcoal, base background */
+  --color-ink-raised: #1B1817;   /* elevated surface (cards) */
+  --color-ink-line: #2E2A28;     /* hairline borders on dark */
+  --color-bone: #F3EFEA;         /* warm off-white, primary text */
+  --color-bone-dim: #A69F97;     /* secondary text on dark */
+  --color-blood: #C22E2E;        /* the one accent — desaturated blood red */
+  --color-blood-bright: #E14545; /* hover/active state of accent */
+  --color-blood-dim: #4A1616;    /* deep red for subtle fills */
+  --color-amber: #D98E3C;        /* urgency/warning secondary accent */
+  --color-sage: #6B8F71;         /* success/eligible state, desaturated green */
+
+  /* ---- Type ---- */
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible keyboard focus ring everywhere, styled to match the brand */
+:focus-visible {
+  outline: 2px solid var(--color-blood-bright);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Pulse-line signature element keyframes */
+@keyframes pulse-travel {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-travel {
+  animation: pulse-travel 3s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar to match dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-line);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-bone-dim);
+}
