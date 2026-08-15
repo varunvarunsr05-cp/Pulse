@@ -48,7 +48,7 @@ blooddonor/
 
 ---
 
-## 1. Set up Supabase (5 min)
+## 1. Set up Supabase
 
 1. Go to [supabase.com](https://supabase.com) → **New Project**. Pick any name/region, set a DB password (save it somewhere).
 2. Once the project is ready, open **SQL Editor → New Query**.
@@ -61,7 +61,7 @@ blooddonor/
 
 ---
 
-## 2. Run the backend locally (2 min)
+## 2. Run the backend locally
 
 ```bash
 cd backend
@@ -76,7 +76,7 @@ Check it's alive: `curl http://localhost:4000/health` → `{"status":"ok"}`
 
 ---
 
-## 3. Run the frontend locally (2 min)
+## 3. Run the frontend locally
 
 ```bash
 cd frontend
@@ -93,7 +93,7 @@ hospital, and watch the AI ranking work.
 
 ---
 
-## 4. Deploy the backend to Render (10 min)
+## 4. Deploy the backend to Render
 
 1. Push this repo to GitHub (see step 6 below if you haven't yet).
 2. Go to [render.com](https://render.com) → **New → Web Service** → connect your GitHub repo.
@@ -116,7 +116,7 @@ hit `/health` a minute before you go on stage to warm it up.
 
 ---
 
-## 5. Deploy the frontend to Vercel (5 min)
+## 5. Deploy the frontend to Vercel
 
 1. Go to [vercel.com](https://vercel.com) → **Add New → Project** → import the same GitHub repo.
 2. Set:
@@ -130,7 +130,7 @@ hit `/health` a minute before you go on stage to warm it up.
 
 ---
 
-## 6. Connect the two (2 min)
+## 6. Connect the two
 
 Go back to Render → your backend service → **Environment** → set:
 - `FRONTEND_URL` = your Vercel URL from step 5
