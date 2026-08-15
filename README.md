@@ -156,44 +156,12 @@ Both Render and Vercel auto-deploy on every push to `main` after this.
 
 ---
 
-## Demo script (for judges)
+## 🔐 Security
 
-1. Open the live Vercel URL — **Landing page** shows the ranking model up front, not a stock hero image.
-2. Register as a **hospital**, post an emergency request (pick a blood group, mark it Critical).
-3. Click into the request → **AI Match view** — shows every eligible donor ranked with a live score ring, expandable to show the exact point breakdown (compatibility / distance / recency / availability / reliability).
-4. In a second tab/incognito window, register as a **donor** with a compatible blood type and a nearby location.
-5. Refresh the donor dashboard — the open request appears with live distance.
-6. Back on hospital tab, refresh matches — the new donor now appears, ranked.
-7. As the donor, accept the match — status updates on both sides.
-
-This whole loop takes under 90 seconds and demonstrates the full stack: real
-auth, real DB, real geolocation-based ranking, real-time-feeling UI.
-
----
-
-## What's intentionally out of scope (say this if asked)
-
-Built in 24 hours for a hackathon, so a few things were deliberately cut to keep
-the core flow bulletproof rather than spreading thin:
-- **Admin dashboard** — schema already supports an `admin` role; UI not built.
-- **Push notifications** — in-app state updates work; Firebase FCM wasn't wired up.
-- **Full e2e test suite** — 16 backend unit/integration tests cover the ranking
-  engine and API contract; no Playwright/Cypress e2e layer yet.
-- **Dark/light mode toggle** — shipped dark-only by design (fits the clinical,
-  high-contrast, ER-at-night aesthetic).
-
-All of these are straightforward extensions of the existing schema and API
-shape, not architectural rewrites.
-
----
-
-## Security notes
-
-- Passwords hashed and managed entirely by Supabase Auth (bcrypt under the hood) — never touched directly.
-- JWTs verified server-side on every protected route (`middleware/auth.js`).
-- Row Level Security enabled on every table — even if the anon key leaked, RLS policies stop unauthorized reads/writes.
-- `service_role` key lives only in backend env vars, never shipped to the client.
-- All API inputs validated with `express-validator` before touching the database.
-- Rate limiting: 300 req/15min general, 20 req/15min on auth routes (brute-force mitigation).
-- `helmet` sets standard security headers; CORS restricted to the deployed frontend origin in production.
-- No raw SQL string concatenation anywhere — Supabase client parameterizes all queries, closing off SQL injection.
+- **Authentication:** Supabase Auth with bcrypt + server-side JWT verification.
+- **Database Security:** Row Level Security (RLS) enabled on every table.
+- **Secrets:** `service_role` key stored only in backend environment variables.
+- **Input Validation:** All API inputs validated with `express-validator`.
+- **Rate Limiting:** 300 requests/15 min; auth routes limited to 20 requests/15 min.
+- **HTTP Security:** Helmet security headers + production-origin-only CORS.
+- **SQL Injection Protection:** Supabase parameterized queries; no raw SQL concatenation.
